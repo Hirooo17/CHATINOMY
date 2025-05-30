@@ -159,7 +159,7 @@ function App() {
     <div className="home-screen">
       <div className="logo-section">
         <h1 className="logo">Amang Tilag Finder</h1>
-        <p className="tagline">Connect with fellow EARIST students</p>
+        <p className="tagline">Connect with fellow College students</p>
       </div>
       
       <div className="start-section">
