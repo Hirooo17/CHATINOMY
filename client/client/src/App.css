@@ -319,10 +319,10 @@ body {
   min-width: 0; /* Allow content to shrink */
   
   /* Improved text wrapping */
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  word-break: break-word;
-  hyphens: auto;
+  word-wrap: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 .message.sent .message-content {
@@ -568,6 +568,8 @@ body {
   .message-content {
     padding: 0.4rem 0.6rem;
     font-size: 0.8rem;
+     /* Only allow breaks for very long unbroken strings */
+    overflow-wrap: break-word;
   }
   
   .chat-header {
