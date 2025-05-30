@@ -11,6 +11,7 @@ function App() {
   const [userName, setUserName] = useState('')
   const messagesEndRef = useRef(null)
   const typingTimeoutRef = useRef(null)
+  const isSearchingRef = useRef(false)
 
   // Initialize socket connection
   useEffect(() => {
@@ -75,6 +76,20 @@ function App() {
       alert('Please enter your name')
       return
     }
+    
+    // If already searching, don't start a new search
+    if (isSearchingRef.current) return
+    
+    // Reset any existing chat state
+    if (roomId) {
+      socket.emit('leaveChat', { roomId })
+    }
+    
+    setRoomId(null)
+    setMessages([])
+    setCurrentMessage('')
+    setIsPartnerTyping(false)
+    
     socket.emit('findPartner', { name: userName })
   }
 
