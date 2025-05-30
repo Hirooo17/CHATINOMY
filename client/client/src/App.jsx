@@ -130,8 +130,8 @@ function App() {
   const renderHome = () => (
     <div className="home-screen">
       <div className="logo-section">
-        <h1 className="logo">CHATONIMY</h1>
-        <p className="tagline">Connect with strangers around the world</p>
+        <h1 className="logo">AMANG TILAG FINDER</h1>
+        <p className="tagline">Connect with other fellow earist students</p>
       </div>
       
       <div className="start-section">
