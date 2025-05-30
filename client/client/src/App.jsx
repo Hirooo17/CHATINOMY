@@ -14,7 +14,7 @@ function App() {
 
   // Initialize socket connection
   useEffect(() => {
-    const newSocket = io('http://localhost:5000')
+    const newSocket = io('https://chatinomy-backend.onrender.com')
     setSocket(newSocket)
 
     // Socket event listeners
