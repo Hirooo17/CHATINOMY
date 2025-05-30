@@ -43,6 +43,7 @@ function App() {
         message,
         timestamp: new Date(timestamp)
       }])
+      
     })
 
     newSocket.on('partnerTyping', ({ isTyping }) => {
@@ -53,8 +54,17 @@ function App() {
       setMessages(prev => [...prev, {
         type: 'system',
         message: `${partnerName} disconnected. Click "New Chat" to find someone else.`,
+        
         timestamp: new Date()
       }])
+      // Return to home screen after a short delay
+    setTimeout(() => {
+    setChatState('home')
+    setRoomId(null)
+    setMessages([])
+    setCurrentMessage('')
+    setIsPartnerTyping(false)
+  }, 2000) // 2 second delay before returning home
     })
 
     newSocket.on('partnerLeft', () => {
@@ -63,6 +73,13 @@ function App() {
         message: `${partnerName} left the chat. Click "New Chat" to find someone else.`,
         timestamp: new Date()
       }])
+    setTimeout(() => {
+    setChatState('home')
+    setRoomId(null)
+    setMessages([])
+    setCurrentMessage('')
+    setIsPartnerTyping(false)
+  }, 2000) // 2 second delay before returning home
     })
 
     return () => newSocket.close()
