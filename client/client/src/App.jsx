@@ -11,6 +11,7 @@ function App() {
   const [userName, setUserName] = useState('')
   const messagesEndRef = useRef(null)
   const typingTimeoutRef = useRef(null)
+  const [partnerName, setPartnerName] = useState('Stranger') // Default to 'Stranger'
 
 
   // Initialize socket connection
@@ -28,6 +29,7 @@ function App() {
     newSocket.on('partnerFound', ({ roomId: newRoomId }) => {
       setRoomId(newRoomId)
       setChatState('chatting')
+      setPartnerName(partnerName || 'Stranger') // Fallback to 'Stranger' if no name provided
       setMessages([{ 
         type: 'system', 
         message: 'Connected to a stranger! Say hello!',
@@ -133,6 +135,7 @@ function App() {
     setMessages([])
     setCurrentMessage('')
     setIsPartnerTyping(false)
+    setPartnerName('Stranger') // Reset partner name
   }
 
   const renderHome = () => (
@@ -199,7 +202,7 @@ function App() {
     <div className="chat-header">
       <div className="header-left">
         <div className="active-indicator"></div>
-        <h3>{userName}</h3>
+         <h3>Chatting with: {partnerName}</h3>
       </div>
       <button onClick={newChat} className="new-chat-btn">
         <svg className="refresh-icon" viewBox="0 0 24 24">
