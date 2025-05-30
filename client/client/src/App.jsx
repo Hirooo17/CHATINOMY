@@ -145,7 +145,7 @@ function App() {
     <div className="start-section">
       <input
         type="text"
-        placeholder="Your name (optional)"
+        placeholder="Your name"
         value={userName}
         onChange={(e) => setUserName(e.target.value)}
         className="name-input"
@@ -163,7 +163,7 @@ function App() {
         <svg className="info-icon" viewBox="0 0 24 24">
           <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 8v4M12 16h.01"/>
         </svg>
-        <p>Chat anonymously with random people</p>
+        <p>Chat anonymously</p>
       </div>
       <div className="info-card">
         <svg className="info-icon" viewBox="0 0 24 24">
@@ -199,7 +199,7 @@ function App() {
     <div className="chat-header">
       <div className="header-left">
         <div className="active-indicator"></div>
-        <h3>Active Chat</h3>
+        <h3>{userName}</h3>
       </div>
       <button onClick={newChat} className="new-chat-btn">
         <svg className="refresh-icon" viewBox="0 0 24 24">
