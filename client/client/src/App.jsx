@@ -15,6 +15,7 @@ function App() {
   // Initialize socket connection
   useEffect(() => {
     const newSocket = io('https://chatinomy-backend.onrender.com')
+    
     setSocket(newSocket)
 
     // Socket event listeners
@@ -128,96 +129,121 @@ function App() {
   }
 
   const renderHome = () => (
-    <div className="home-screen">
-      <div className="logo-section">
-        <h1 className="logo">AMANG TILAG FINDER</h1>
-        <p className="tagline">Connect with other fellow earist students</p>
+  <div className="home-screen">
+    <div className="logo-section">
+      <h1 className="logo">Amang Tilag Finder</h1>
+      <p className="tagline">Connect with fellow EARIST students</p>
+    </div>
+    
+    <div className="start-section">
+      <input
+        type="text"
+        placeholder="Your name (optional)"
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+        className="name-input"
+      />
+      <button onClick={startChat} className="start-btn">
+        <span>Start Chatting</span>
+        <svg className="arrow-icon" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div className="info-section">
+      <div className="info-card">
+        <svg className="info-icon" viewBox="0 0 24 24">
+          <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 8v4M12 16h.01"/>
+        </svg>
+        <p>Chat anonymously with random people</p>
       </div>
-      
-      <div className="start-section">
-        <input
-          type="text"
-          placeholder="Enter your name (optional)"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-          className="name-input"
-        />
-        <button onClick={startChat} className="start-btn">
-          Start Chatting
-        </button>
+      <div className="info-card">
+        <svg className="info-icon" viewBox="0 0 24 24">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        </svg>
+        <p>No registration required</p>
       </div>
-      
-      <div className="info-section">
-        <p>• Chat anonymously with random people</p>
-        <p>• No registration required</p>
-        <p>• Be respectful and have fun!</p>
+      <div className="info-card">
+        <svg className="info-icon" viewBox="0 0 24 24">
+          <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+        </svg>
+        <p>Be respectful and have fun!</p>
       </div>
     </div>
-  );
+  </div>
+);
 
   const renderWaiting = () => (
-    <div className="waiting-screen">
-      <div className="waiting-content">
-        <div className="spinner"></div>
-        <h2>Looking for someone to chat with...</h2>
-        <p>Please wait while we find you a conversation partner</p>
-        <button onClick={newChat} className="cancel-btn">
-          Cancel
-        </button>
-      </div>
+  <div className="waiting-screen">
+    <div className="waiting-content">
+      <div className="spinner"></div>
+      <h2>Finding you a partner...</h2>
+      <p>This usually takes less than a minute</p>
+      <button onClick={newChat} className="cancel-btn">
+        Cancel Search
+      </button>
     </div>
-  );
+  </div>
+);
 
-  const renderChat = () => (
-    <div className="chat-screen">
-      <div className="chat-header">
-        <h3>CHATONIMY</h3>
-        <div className="chat-controls">
-          <button onClick={newChat} className="new-chat-btn">
-            New Chat
-          </button>
-        </div>
+ const renderChat = () => (
+  <div className="chat-screen">
+    <div className="chat-header">
+      <div className="header-left">
+        <div className="active-indicator"></div>
+        <h3>Active Chat</h3>
       </div>
-      
-      <div className="messages-container">
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.type}`}>
-            <div className="message-content">
-              {msg.message}
-            </div>
-            <div className="message-time">
-              {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-            </div>
-          </div>
-        ))}
-        {isPartnerTyping && (
-          <div className="typing-indicator">
-            <span>Stranger is typing</span>
-            <div className="typing-dots">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
-      </div>
-      
-      <form onSubmit={sendMessage} className="message-form">
-        <input
-          type="text"
-          value={currentMessage}
-          onChange={handleTyping}
-          placeholder="Type your message..."
-          className="message-input"
-          autoFocus
-        />
-        <button type="submit" className="send-btn">
-          Send
-        </button>
-      </form>
+      <button onClick={newChat} className="new-chat-btn">
+        <svg className="refresh-icon" viewBox="0 0 24 24">
+          <path d="M23 4v6h-6M1 20v-6h6"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+        New Chat
+      </button>
     </div>
-  );
+    
+    <div className="messages-container">
+      {messages.map((msg, index) => (
+        <div key={index} className={`message ${msg.type}`}>
+          <div className="message-content">
+            {msg.message}
+          </div>
+          <div className="message-time">
+            {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          </div>
+        </div>
+      ))}
+      {isPartnerTyping && (
+        <div className="typing-indicator">
+          <div className="typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span>Stranger is typing</span>
+        </div>
+      )}
+      <div ref={messagesEndRef} />
+    </div>
+    
+    <form onSubmit={sendMessage} className="message-form">
+      <input
+        type="text"
+        value={currentMessage}
+        onChange={handleTyping}
+        placeholder="Type your message..."
+        className="message-input"
+        autoFocus
+      />
+      <button type="submit" className="send-btn">
+        <svg className="send-icon" viewBox="0 0 24 24">
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+);
 
   return (
     <div className="App">
